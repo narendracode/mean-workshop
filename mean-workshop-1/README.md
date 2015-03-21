@@ -1,13 +1,12 @@
 This is step one of MEAN Workshop
 --------------------------------
 
-1. install express generator
-2. express mean-workshop-1
-cd mean-workshop-1
-npm install
-node ./bin/www
-
-http://localhost:3000
+install express generator <br />
+express mean-workshop-1 <br />
+cd mean-workshop-1 <br />
+npm install <br />
+node ./bin/www <br /> <br />
+Access application at http://localhost:3000
 
 
 
