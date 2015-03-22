@@ -15,7 +15,11 @@ npm install superagent --save <br />
 npm install expect.js --save <br />
 npm install mocha -g <br />
 node ./bin/www <br /> 
-Access application at http://localhost:3000
+Access application at http://localhost:3000 <br /> <br />
+
+cd test/server <br />
+mocha user_test.js
+
 
 
 
