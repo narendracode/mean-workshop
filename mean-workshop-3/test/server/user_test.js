@@ -68,8 +68,8 @@ describe('USER REST API TEST',function(){
           .end(function(e,res){
              expect(e).to.eql(null);
                    expect(res.body['type']).to.eql(true);
-                   expect(typeof res.body['data']).to.eql('number');
-                  // expect(typeof res.body['data']).to.eql('object');
+                   expect(typeof res.body['data']).to.eql('number'); 
+                   /*  expect(typeof res.body['data']).to.eql('object');*/
                    done(); 
           })
        }); 
