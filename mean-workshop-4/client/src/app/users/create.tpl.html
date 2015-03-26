@@ -1,0 +1,23 @@
+<h4>Welcome to create page</h4>
+<form  class="form-horizontal meetupCreateForm"  name="userCreateForm">
+        <div class="form-group"  show-errors>
+                <label for="userName">Meetup Name</label>
+                <input type="text" ng-model="userName" name="userName" class="form-control" id="userName" 
+                required minlength ="5" maxlength="90"
+                placeholder="Enter User Name">
+                <p class="help-block" ng-if="userCreateForm.userName.$error.minlength">
+                   User name is too short, name should atleast be 5 characters long
+                </p>
+        </div>
+
+        <div class="form-group"  show-errors>
+                <label for="userOrg">Organization Name</label>
+                <input type="text" ng-model="userOrg" name="userOrg" class="form-control" id="userOrg" 
+                required minlength ="5" maxlength="90"
+                placeholder="Enter User's Organization">
+                <p class="help-block" ng-if="userCreateForm.userOrg.$error.minlength">
+                   User org is too short, name should atleast be 5 characters long
+                </p>
+        </div>
+        <button type='submit' class='btn btn-info' ng-click="createUser()">Create</button>
+</form>

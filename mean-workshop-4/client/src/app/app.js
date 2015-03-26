@@ -1,4 +1,4 @@
-angular.module('app',['ngResource','ui.router','ngCookies']);
+angular.module('app',['ngResource','ui.router','ngCookies','users']);
 
 angular.module('app')
                 .config(['$stateProvider','$urlRouterProvider',
