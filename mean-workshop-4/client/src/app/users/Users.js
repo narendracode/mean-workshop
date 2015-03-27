@@ -33,8 +33,10 @@ angular.module('users').config(['$stateProvider','$urlRouterProvider',
 ]);
 
 angular.module('users').controller('UsersController',['$scope','$resource','$state','$location','UserUpdateService',
-                                   function($scope,$resource,$state,$location,UserUpdateService){
-                
+         function($scope,$resource,$state,$location,UserUpdateService){
+                //var UserResource = $resource('/users      
+                var userService = new UserUpdateService();
+
                 var loadUsers = function(){
                 
                 }
@@ -42,7 +44,7 @@ angular.module('users').controller('UsersController',['$scope','$resource','$sta
                 $scope.createUser = function(){
                    $scope.$broadcast('show-errors-check-validity'); 
                    if ($scope.userCreateForm.$valid){ 
-                        console.log('Create User ... ');
+                        userService        
                    }
                 }
         }

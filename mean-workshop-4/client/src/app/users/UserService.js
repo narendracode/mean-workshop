@@ -14,6 +14,9 @@ module.factory('UserUpdateService',
                         },
                         {
                                 'delete' : {method : 'DELETE'}
+                        },
+                        {
+                                'save' : { method : 'POST'}
                         }
                   );
                }
