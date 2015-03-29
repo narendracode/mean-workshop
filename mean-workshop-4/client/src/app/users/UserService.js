@@ -10,13 +10,19 @@ module.factory('UserUpdateService',
                                 'update' : {method : 'PUT' }
                         },
                         {
-                                'get' : { method : 'GET', isArray: false}
+                                'get' : { method : 'GET' }
                         },
                         {
-                                'delete' : {method : 'DELETE'}
+                                'delete' : {method : 'DELETE' }
                         },
                         {
-                                'save' : { method : 'POST'}
+                                'save' : { method : 'POST' }
+                        },
+                        {
+                                'query' : { 
+                                   method : 'GET',
+                                   isArray: true 
+                                }
                         }
                   );
                }

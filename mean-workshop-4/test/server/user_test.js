@@ -56,9 +56,8 @@ describe('USER REST API TEST',function(){
                 .get(baseUrl)
                 .end(function(e,res){
                    expect(e).to.eql(null);
-                   expect(res.body['type']).to.eql(true);
-                   expect(typeof res.body['data']).to.eql('object');
-                  done();
+                   expect(typeof res.body).to.eql('object');
+                   done();
                 })
         });
 

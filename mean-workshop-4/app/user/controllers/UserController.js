@@ -21,16 +21,18 @@ exports.create = function(req,res){
 
 exports.getAll = function(req,res){
         User.find({},function(err,result){
-                 if(err){
+               if(err){
                         res.json({
                                 type: false,
                                 error: err
                         });
                 }
-                res.json({
+                             
+              /*  res.json({
                         type: true,
                         data : result
-                });
+                });*/
+               res.json(result);
         });
 };
 
