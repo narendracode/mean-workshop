@@ -28,7 +28,7 @@ angular.module('users').config(['$stateProvider','$urlRouterProvider',
                .state('useredit',{
                                 url : '/user/edit/:id/',
                                 templateUrl : 'app/users/edit.tpl.html',
-                                controller : 'UsersController'
+                                controller : 'UsersController' 
                });
         }
 ]);
@@ -37,7 +37,6 @@ angular.module('users').controller('UsersController',['$scope','$resource','$sta
          function($scope,$resource,$state,$location,UserUpdateService,$cookieStore,$timeout,$rootScope){
                 var UserResource = $resource('/users');      
                 var userService = new UserUpdateService();
-                //$scope.user = {name : 'narendra',email : 'narend@gmail.com'};
                 var loadUsers = function(){
                    console.log('Load users is called.. ');
                    UserResource.query(function(result){
@@ -59,6 +58,7 @@ angular.module('users').controller('UsersController',['$scope','$resource','$sta
                         userService.email = $scope.email;
                         userService.$save(function(result){
                                         UserResource.query(function(result){
+                                           $cookieStore.put('users',result);
                                            $scope.users = result;     
                                            $location.path('/user/');
                                         });
@@ -68,9 +68,26 @@ angular.module('users').controller('UsersController',['$scope','$resource','$sta
 
                 $scope.findUser = function(_id){
                    userService.$get({id : _id},function(result){
-                   /*              $rootScope.user = {name : result['data'].name, email : result['data'].email};*/
-                                 $rootScope.user = result['data'];
+                      $rootScope.user = result['data'];
                    });
+                }
+                $scope.editUser = function(_id){
+                   userService.name = $rootScope.user.name;
+                   userService.email = $rootScope.user.email;
+                   userService.$update({id:_id},function(result){
+                      $cookieStore.remove('users'); 
+                      $location.path('/user/');     
+                   })
+                }
+
+                $scope.deleteUser = function(_id){
+                        userService.$delete({id:_id},function(result){
+                                UserResource.query(function(result){
+                                           $cookieStore.put('users',result);
+                                           $scope.users = result;     
+                                           $location.path('/user/');
+                                        });
+                        });
                 }
         }
 ]);

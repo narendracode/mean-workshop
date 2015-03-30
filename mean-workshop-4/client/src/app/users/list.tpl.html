@@ -1,3 +1,4 @@
+<a href='/#/user/create/'>Create New </a>
 <h1> There are {{users.length}} users</h1>
 <table class='table table-striped' ng-show='users.length'>
    <tr>
@@ -14,11 +15,11 @@
       </td>
       <td>
          <!--         <a class="btn btn-inverse"   href="/#/meetup/{{meetup._id}}/edit/" ng-click="findMeetup(meetup._id)">Edit</a>-->
-  <a class="btn btn-inverse"   href="/#/meetup/{{meetup._id}}/edit/" ng-click="findMeetup(meetup._id)">Edit</a>
+  <a class="btn btn-inverse"   href="/#/user/edit/{{user._id}}/" ng-click='findUser(user._id)' >Edit</a>
 
       </td>
       <td>
-         <button  class="btn btn-danger" ng-click="deleteMeetup(meetup._id)"> Delete </button>
+         <button  class="btn btn-danger" ng-click="deleteUser(user._id)"> Delete </button>
       </td>
    </tr>
 </table>
