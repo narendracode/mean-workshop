@@ -1,2 +1,9 @@
 This is fourth step of MEAN-Workshop </br>
-AngularJS integrated into the project for front end  UI  form validation, consuming Backend REST api and front end view routing.
+
+server side test added into the project.
+
+run as :
+npm start
+npm test
+
+test calls mocha, the test runner tool.
