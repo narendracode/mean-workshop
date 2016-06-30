@@ -1,8 +1,7 @@
 angular.module('users',['ngResource',
                         'ui.router',
                         'ui.bootstrap.showErrors',
-                        'user.services',
-                        'ngCookies'
+                        'user.services'
                         ]);
 
 angular.module('users').config(['$stateProvider','$urlRouterProvider',
@@ -17,77 +16,80 @@ angular.module('users').config(['$stateProvider','$urlRouterProvider',
                .state('usercreate',{
                                 url : '/user/create/',
                                 templateUrl : 'app/users/create.tpl.html',
-                                controller : 'UsersController'
+                                controller : 'UserCreateController'
                })
                .state('userdetails',{
                                 url : '/user/:id/',
                                 templateUrl : 'app/users/details.tpl.html',
-                                controller : 'UsersController'
+                                controller : 'UserEditController'
 
                })
                .state('useredit',{
                                 url : '/user/edit/:id/',
                                 templateUrl : 'app/users/edit.tpl.html',
-                                controller : 'UsersController' 
+                                controller : 'UserEditController' 
                });
         }
 ]);
 
-angular.module('users').controller('UsersController',['$scope','$resource','$state','$location','UserUpdateService','$cookieStore','$timeout','$rootScope',
-         function($scope,$resource,$state,$location,UserUpdateService,$cookieStore,$timeout,$rootScope){
+
+
+angular.module('users').controller('UsersController',['$scope','$resource','$state','$location','UserUpdateService','$rootScope',
+         function($scope,$resource,$state,$location,UserUpdateService,$rootScope){
                 var UserResource = $resource('/users');      
                 var userService = new UserUpdateService();
-                var loadUsers = function(){
-                   console.log('Load users is called.. ');
-                   UserResource.query(function(result){
-                              $scope.users = result; 
-                              $cookieStore.put('users',result);
+                   var userResource = new UserResource();
+                  userResource.$get(function(result){
+                              console.log(JSON.stringify(result));
+                              $scope.users = result['data']; 
                         });                
-                }
-                
-                if(!$cookieStore.get('users')){
-                        loadUsers();
-                }else{
-                        $scope.users = $cookieStore.get('users');
-                }
 
+                $scope.deleteUser = function(_id){
+                        userService.$delete({id:_id},function(result){
+                                userResource.$get(function(result){
+                                           $scope.users = result['data'];      
+                                });
+                        });
+                }
+        }
+]);
+
+angular.module('users').controller('UserCreateController',['$scope','$resource','$state','$location','UserUpdateService','$rootScope',
+         function($scope,$resource,$state,$location,UserUpdateService,$rootScope){
+                var userService = new UserUpdateService();
                 $scope.createUser = function(){
                    $scope.$broadcast('show-errors-check-validity'); 
                    if ($scope.userCreateForm.$valid){ 
                         userService.name = $scope.userName;
                         userService.email = $scope.email;
                         userService.$save(function(result){
-                                        UserResource.query(function(result){
-                                           $cookieStore.put('users',result);
-                                           $scope.users = result;     
-                                           $location.path('/user/');
-                                        });
+                              $location.path('/user/');
                         });
                    }
                 }
 
-                $scope.findUser = function(_id){
-                   userService.$get({id : _id},function(result){
-                      $rootScope.user = result['data'];
+         }]);
+
+angular.module('users').controller('UserEditController',['$scope','$resource','$state','$location','UserUpdateService','$rootScope','$stateParams',
+         function($scope,$resource,$state,$location,UserUpdateService,$rootScope,$stateParams){
+          
+                var userService = new UserUpdateService();
+                  console.log("find user with id : "+$stateParams.id);
+                   userService.$get({id : $stateParams.id},function(result){
+                      $scope.user = result['data'];
                    });
-                }
+                
                 $scope.editUser = function(_id){
-                   userService.name = $rootScope.user.name;
-                   userService.email = $rootScope.user.email;
+                   userService.name = $scope.user.name;
+                   userService.email = $scope.user.email;
                    userService.$update({id:_id},function(result){
-                      $cookieStore.remove('users'); 
                       $location.path('/user/');     
                    })
                 }
 
-                $scope.deleteUser = function(_id){
-                        userService.$delete({id:_id},function(result){
-                                UserResource.query(function(result){
-                                           $cookieStore.put('users',result);
-                                           $scope.users = result;     
-                                           $location.path('/user/');
-                                        });
-                        });
-                }
-        }
-]);
+
+
+         }]);
+
+
+

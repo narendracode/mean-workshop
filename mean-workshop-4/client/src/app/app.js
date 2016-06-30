@@ -1,4 +1,4 @@
-angular.module('app',['ngResource','ui.router','ngCookies','users']);
+angular.module('app',['ngResource','ui.router','users']);
 
 angular.module('app')
                 .config(['$stateProvider','$urlRouterProvider',
@@ -12,8 +12,8 @@ angular.module('app')
                         }
 ]);
 
-angular.module('app').controller('AppCtrl',['$scope','$location','$rootScope','$cookieStore',
-                                            function($scope,$location,$rootScope,$cookieStore){
+angular.module('app').controller('AppCtrl',['$scope','$location','$rootScope',
+                                            function($scope,$location,$rootScope){
                                         $scope.message = "Welcome to MEAN Workshop";
                                  }
 ]);
